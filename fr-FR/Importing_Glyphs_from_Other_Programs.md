@@ -12,7 +12,7 @@ Il est possible de dessiner des glyphes dans une application d'illustration (tel
 
 #### Comment le préparer
 
-* Le fichier SVG a pas besoin de `viewBox="0 0 1000 1000"`
+* Le fichier SVG doit être parametré avec `viewBox="0 0 1000 1000"`
 
 * La largeur n'a pas d'importance, tant qu'elle est plus large que votre glyphe. Mais une hauteur de 1000 est important pour faciliter l'importation.
 
@@ -20,20 +20,20 @@ Il est possible de dessiner des glyphes dans une application d'illustration (tel
 
 * (Il peut y avoir quelques glyphes qui vont au-delà de ces lignes. Peut-être que FontForge fera la bonne chose, mais nous ne l'avons pas testé.)
 
-* Par défaut, FontForge configurera votre ligne de base à `y=800`. Dans le système de coordonnées FontForge, la ligne de base se trouve à '0' sur l'ordonnée.
+* Par défaut, FontForge configurera votre ligne de base à `y=800`. Dans le système de coordonnées FontForge, la ligne de base se trouve à `0` sur l'ordonnée.
 
-* Pour définir la ligne de base où vous la voulez dans FontForge, prenez la coordonnée y pour votre ligne de base en SVG. Ce sera le point vertical de FontForge pour la ligne d'ascendante dans son système de coordonnées. (1000 - y) pour la descendante. Allez dans `Élément, Infos fonte` et dans le menu Général, placez la valeur de l'ascendante dans  l'entrée "Ascent" et celle de la descendante dans l'entrée "Descent". Les deux seront positifs. Le cadratin (la taille Em) doit rester à 1000 (comme c'est la hauteur en unités SVG).
+* Pour définir la ligne de base où vous la voulez dans FontForge, prenez la coordonnée y pour votre ligne de base en SVG. Ce sera le point vertical de FontForge pour la ligne d'ascendante dans son système de coordonnées. `1000 - y` pour la descendante. Allez dans `Élément > Infos fonte` et dans le menu `Général`, placez la valeur de l'ascendante dans le champs "Ascent" et celle de la descendante dans le champs "Descent". Les deux seront positifs. Le cadratin (la taille Em) doit rester à 1000 (comme c'est la hauteur en unités SVG).
 
-* Lors du dessin du glyphe, il est préférable d'utiliser des coordonnées relatives. Commencez le glyphe avec `<path d="M Xvalue,Yvalue`. Si vous pouvez dessiner le glyphe à partir d'un point tout à gauche, alors le XValue sera l'approche gauche par défaut (LeftBearing) que FontForge utilise. Vous pouvez ajuster cela facilement après l'importation du glyphe et devriez avoir besoin de le faire de toute façon après avoir testé la police. Pour le Yvalue, quand vous pouvez commencer à dessiner à partir de la ligne de base, utilisez cette valeur de ligne de base pour le Yvalue.
+* Lors du dessin du glyphe, il est préférable d'utiliser des coordonnées relatives. Commencez le glyphe avec `<path d="M valeurX,valeurY`. Si le glyphe peut être dessiné en commençant par la toute gauche, alors la `valeurX` sera l'approche gauche par défaut (LeftBearing) que FontForge utilise. Vous pouvez ajuster cela facilement après l'importation du glyphe (et devriez avoir besoin de le faire de toute façon après avoir testé la police). Il est aussi pratique d'utiliser la `valeurY` comme ligne de base.
 
-* Toujours terminer l'attribut du chemin d avec un z. Le SVG importera sans cela, mais le glyphe ne s'affichera pas directement dans la fenêtre principale jusqu'à ce que vous redémarriez fontforge si vous oubliez de mettre un z après le dernier point du chemin.
+* Toujours terminer l'attribut du chemin `d` avec un `z`. Sans cela, le SVG s'importera quand même, mais le glyphe ne s'affichera pas correctement dans la fenêtre principale jusqu'au redémarrage de fontforge.
 
-* Lorsque vous dessinez des trous (comme pour la lettre P), ne commencez pas un nouveau nœud de chemin. Il suffit d'utiliser z à la fin du premier chemin et commencez de nouveau avec `mNewX,NewY` pour commencer à dessiner le trou. Utilisez l'attribut `fill-rule="evenodd"` pour le chemin et cela fonctionnera correctement.
+* Lorsque vous dessinez des trous (comme pour la lettre P), ne commencez pas un nouveau nœud de chemin. Il suffit d'utiliser z à la fin du premier chemin et commencez de nouveau avec `mNouveauX,NouveauY` pour commencer à dessiner le trou. Utilisez l'attribut `fill-rule="evenodd"` pour le chemin et cela fonctionnera correctement.
 
 
 #### Flux de travail
 
-Utilisez un navigateur Web pour afficher le SVG sur lequel vous travaillez. Vous pouvez utiliser un fichier nommé "template.svg" qui est 1200 par 1200, mais s'affiche à 800 par 800 afin qu'il ne défile dans la fenêtre du navigateur.
+Utilisez un navigateur Web pour afficher le SVG sur lequel vous travaillez. Vous pouvez utiliser un fichier nommé `template.svg` qui est 1200 par 1200, mais s'affiche à 800 par 800 afin qu'il ne défile dans la fenêtre du navigateur.
 
 Dans ce modèle, tracez les lignes directrices à `y=100, y=1100, y=(100 + {ligne de base, hauteur de capitale, etc.}, x=100, x=1100`
 
